@@ -45,26 +45,11 @@ BMWB/
 
 ## Getting Started
 
-### Option 1: Open directly in browser
+Open directly in browser
 
 1. Navigate to the project folder.
 2. Open `index.html` in a modern browser.
 3. Use the interface to populate or review data and generate drafts.
-
-### Option 2: Run a local HTTP server
-
-If you prefer serving the app locally:
-
-```bash
-cd "c:\RAO\ICSI WEB SERIES\02 - 12-09-2026 - Automation for CompanySecretaries -- Develop your ownApps with AI, No Coding Needed\BMWB"
-python -m http.server 8000
-```
-
-Then open:
-
-```text
-http://localhost:8000/
-```
 
 ## Data Inputs
 
