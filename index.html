@@ -1,0 +1,355 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Board Meeting Workbench | CS Review Drafts</title>
+<style>
+:root{--ink:#1c2938;--muted:#5f6c7b;--line:#dbe2e9;--paper:#fff;--wash:#f3f6f9;--navy:#183550;--blue:#235d82;--teal:#13766d;--amber:#946400;--red:#a63232;--green:#246b49;--shadow:0 4px 16px #17324a0d}
+*{box-sizing:border-box}body{margin:0;background:var(--wash);color:var(--ink);font:14px/1.5 "Segoe UI",Arial,sans-serif}button,input,select,textarea{font:inherit}button{cursor:pointer}.top{background:var(--navy);color:white;padding:20px max(22px,calc((100vw - 1320px)/2));display:flex;align-items:center;justify-content:space-between;gap:18px}.brand h1{font-size:22px;line-height:1.2;margin:0 0 5px}.brand p{color:#d4e0e8;margin:0;font-size:13px}.badge{white-space:nowrap;border:1px solid #8db4c2;border-radius:20px;padding:6px 11px;font-size:12px;color:#e1f4ef}.wrap{max-width:1320px;margin:22px auto;padding:0 20px 50px}.notice{background:#fff7e8;border:1px solid #eed7a5;color:#614810;border-radius:8px;padding:11px 14px;margin-bottom:16px}.toolbar,.card{background:var(--paper);border:1px solid var(--line);border-radius:10px;box-shadow:var(--shadow)}.toolbar{padding:14px;display:flex;flex-wrap:wrap;align-items:center;gap:9px;margin-bottom:16px}.toolbar .spacer{flex:1}.btn{border:1px solid #b8c8d4;background:#fff;color:var(--navy);border-radius:6px;padding:8px 12px;font-weight:600}.btn:hover{background:#f2f7fa}.btn.primary{background:var(--blue);color:white;border-color:var(--blue)}.btn.danger{color:var(--red)}.filelabel{display:inline-flex;align-items:center;gap:7px}.hidden{display:none!important}.small{font-size:12px;color:var(--muted)}.layout{display:grid;grid-template-columns:minmax(330px, .84fr) minmax(420px,1.16fr);gap:16px;align-items:start}.stack{display:grid;gap:16px}.card{padding:17px}.card h2{font-size:16px;margin:0 0 12px;color:var(--navy)}.card h3{font-size:14px;margin:15px 0 8px;color:var(--navy)}.grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:10px 12px}.field{min-width:0}.field.full{grid-column:1/-1}.field label{display:block;color:#425366;font-size:12px;font-weight:650;margin-bottom:4px}.field input,.field select,.field textarea,.inline-edit{width:100%;border:1px solid #cbd5de;border-radius:5px;padding:8px 9px;color:var(--ink);background:white}.field textarea{min-height:60px;resize:vertical}.rows{display:grid;gap:8px}.person{display:grid;grid-template-columns:minmax(130px,1.6fr) minmax(110px,1fr) auto;gap:8px;align-items:center;border-bottom:1px solid #edf0f3;padding:7px 0}.person .pname{font-weight:600}.person .pdetail{color:var(--muted);font-size:12px}.status{font-size:11px;font-weight:700;border-radius:12px;padding:3px 8px;display:inline-block;white-space:nowrap}.met{background:#e7f4ec;color:var(--green)}.review{background:#fff2d8;color:var(--amber)}.issue{background:#fbe8e7;color:var(--red)}.checks{display:grid;gap:9px}.check{border:1px solid var(--line);border-radius:7px;padding:11px}.checkhead{display:flex;justify-content:space-between;gap:12px;align-items:center;font-weight:700}.check p{margin:5px 0 0;color:#4d5b6b;font-size:13px}.docbar{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:12px}.preview{background:#fff;border:1px solid #d5dce2;padding:26px;min-height:480px;color:#192b3b;box-shadow:0 2px 8px #162d4010}.preview h1{font-size:19px;text-align:center;margin:0 0 4px}.preview h2{font-size:16px;text-align:center;margin:0 0 15px}.preview h3{font-size:14px;margin:18px 0 6px}.preview p{margin:7px 0}.preview table{border-collapse:collapse;width:100%;margin:9px 0;font-size:12px}.preview td,.preview th{border:1px solid #aebac4;padding:6px;text-align:left;vertical-align:top}.preview th{background:#f0f3f6}.draftlabel{font-size:11px;text-align:center;letter-spacing:.12em;color:var(--red);font-weight:bold;margin-bottom:8px}.muted{color:var(--muted)}.agenda-item{border:1px solid var(--line);padding:10px;border-radius:6px}.agenda-top{display:grid;grid-template-columns:24px 1fr auto;gap:6px;align-items:start}.agenda-controls{display:flex;gap:5px}.agenda-controls button{padding:3px 7px}.agenda-item .field{margin-top:7px}.party-options{display:flex;flex-wrap:wrap;gap:5px}.party-check{border:1px solid #d5dfe7;border-radius:4px;padding:3px 6px;font-size:12px}.feedback{max-height:200px;overflow:auto;border-top:1px solid var(--line);margin-top:10px;padding-top:8px}.msg{padding:5px 0;font-size:12px}.msg.error{color:var(--red)}.msg.warn{color:var(--amber)}.msg.ok{color:var(--green)}.inline{display:flex;gap:8px;align-items:center;flex-wrap:wrap}.inline input[type=checkbox]{width:auto}.foot{color:var(--muted);font-size:11px;margin-top:16px}.empty{color:var(--muted);padding:14px;border:1px dashed #cbd5de;border-radius:6px}.checklist{margin:0;padding-left:18px}.checklist li{margin:5px 0}.flash{position:fixed;right:20px;bottom:20px;background:#193c50;color:white;padding:10px 15px;border-radius:7px;box-shadow:var(--shadow);z-index:4}@media(max-width:900px){.layout{grid-template-columns:1fr}.top{align-items:flex-start;flex-direction:column}.grid{grid-template-columns:1fr 1fr}}@media(max-width:540px){.wrap{padding:0 10px 30px}.grid{grid-template-columns:1fr}.field.full{grid-column:auto}.person{grid-template-columns:1fr auto}.person .field{grid-column:1/-1}.preview{padding:15px}.toolbar .spacer{display:none}}
+@media print{body{background:white}.top,.toolbar,.leftcol,.docbar,.docpick,.notice,.foot{display:none!important}.wrap{max-width:none;margin:0;padding:0}.layout{display:block}.rightcol>.card{border:0;box-shadow:none;padding:0}.preview{border:0;box-shadow:none;padding:0;min-height:0}.rightcol .card>h2{display:none}}
+body{background:#f4f6f5;font-size:13px}.top{height:58px;background:#194b3b;padding:0 22px;gap:14px;position:sticky;top:0;z-index:5}.brand{display:flex;align-items:baseline;gap:12px;min-width:250px}.brand h1{font-size:17px;margin:0;white-space:nowrap}.brand p{font-size:11px;margin:0;color:#d1e2db}.badge{font-size:10px;padding:4px 8px;border-color:#88ac9c}.wrap{max-width:none;width:100%;margin:0;padding:0 0 54px}.notice{margin:0;border:0;border-radius:0;padding:5px 16px;background:#f7faf8;font-size:11px}.toolbar{height:43px;margin:0;border:0;border-radius:0;padding:5px 18px;background:#eaf0ed;box-shadow:none;gap:7px}.toolbar .btn{padding:5px 9px;font-size:11px}.toolbar .spacer{display:none}.toolbar #exampleFlag{margin-left:auto;font-size:10px}.workflow{height:35px;background:white;border-bottom:1px solid #d9e0dc;display:flex;align-items:center;gap:18px;padding:0 20px;color:#5d6d65;font-size:11px}.workflow b{color:#294b3b}.layout{height:calc(100vh - 175px);min-height:500px;grid-template-columns:minmax(235px,20%) minmax(420px,1fr) minmax(255px,21%);gap:0;align-items:stretch;background:#f2f4f3}.leftcol,.centercol,.rightcol{min-width:0;min-height:0;overflow:auto;display:block;padding:12px 14px}.leftcol{background:#fafbfa;border-right:1px solid #dce2de}.centercol{padding:12px 18px;background:#f0f2f1}.rightcol{background:#fafbfa;border-left:1px solid #dce2de}.stack{gap:0}.card{border:0;border-radius:0;box-shadow:none;background:transparent;padding:0;margin:0 0 16px}.card h2{font-size:13px;margin:0 0 9px;color:#254d3e}.leftcol .card h2{padding-bottom:6px;border-bottom:1px solid #d6dfda}.leftcol .card:not(:first-child){border-top:1px solid #d8dfdb;padding-top:10px}.grid{grid-template-columns:1fr 1fr;gap:7px 8px}.field label{font-size:10px;margin-bottom:2px}.field input,.field select,.field textarea,.inline-edit{padding:6px 7px;border-radius:3px;font-size:11px;min-height:30px}.field textarea{min-height:48px}.leftcol .field input,.leftcol .field select{height:30px}.leftcol .grid .field:nth-child(6),.leftcol .grid .field:nth-child(7),.leftcol .grid .field:nth-child(10),.leftcol .grid .field.full{grid-column:1/-1}.leftcol h3{font-size:11px;margin:10px 0 4px}.leftcol #attendance{max-height:170px;overflow:auto}.leftcol #attendance .person{grid-template-columns:minmax(72px,1fr) 102px;gap:4px;padding:4px 0}.leftcol #attendance .person>span{display:none}.leftcol #attendance .pname{font-size:10px}.leftcol #attendance .pdetail{font-size:9px}.leftcol #attendance select{font-size:10px;padding:4px}.leftcol .small{font-size:10px;line-height:1.35}.leftcol #intake{max-height:135px}.leftcol #people{max-height:160px;overflow:auto}.leftcol #companyFacts{max-height:120px;overflow:auto}.agenda-item{padding:8px;margin-bottom:6px}.agenda-top{grid-template-columns:20px 1fr auto}.agenda-controls button{font-size:10px;padding:2px 5px}.agenda-item .field{margin-top:5px}.agenda-item textarea{min-height:40px}.docbar{margin:0;display:flex;gap:0;border-bottom:1px solid #d7dfda;flex-wrap:nowrap;overflow:auto}.docbar .doc-tab{border:0;border-radius:0;background:transparent;padding:8px 11px;color:#5d6d65;font-size:11px;white-space:nowrap}.docbar .doc-tab.active{color:#234b3d;background:#fff;border:1px solid #d7dfda;border-bottom:2px solid #37765d;font-weight:700}.docbar select{display:none}.center-title{display:flex;align-items:center;justify-content:space-between;background:#e8eeeb;color:#365447;font-size:11px;padding:8px 10px;margin:0 0 10px}.preview{max-width:790px;margin:0 auto;background:#fff;min-height:calc(100vh - 310px);padding:28px 38px;border:1px solid #dfe4e1;box-shadow:0 2px 9px #243b3010;font-family:Arial,sans-serif;font-size:12px;line-height:1.5}.preview h1{font-size:16px}.preview h2{font-size:14px}.preview h3{font-size:12px}.preview table{font-size:10px}.preview td,.preview th{padding:4px}.draftlabel{font-size:9px;color:#59675f;letter-spacing:.08em}.rightcol .card h2{padding-bottom:6px;border-bottom:1px solid #d6dfda}.rightcol .small{font-size:10px;line-height:1.4}.checks{gap:7px}.check{background:white;border-left:3px solid #6e9d82;border-radius:3px;padding:8px 9px;box-shadow:0 1px 4px #25392e0c}.check:has(.status.review){border-left-color:#c99435}.check:has(.status.issue){border-left-color:#c35c54}.checkhead{display:block;font-size:11px}.checkhead .status{display:block;width:max-content;margin:4px 0 0;font-size:9px;padding:2px 6px}.check p{font-size:10px;line-height:1.4;margin:5px 0 0}.action-dock{position:fixed;left:0;right:0;bottom:0;min-height:42px;padding:5px 20px;background:#fff;border-top:1px solid #d3dbd6;display:flex;gap:7px;align-items:center;z-index:6}.action-dock .btn{font-size:10px;padding:5px 9px;border-radius:3px}.action-dock .btn.primary{background:#285c48;border-color:#285c48}.action-dock .spacer{flex:1}.feedback{margin-top:7px}.status{border-radius:2px}.small{font-size:11px}
+@media(max-width:900px){.top{height:auto;min-height:58px;flex-wrap:wrap;padding:9px 12px}.workflow{overflow:auto;white-space:nowrap}.layout{height:auto;min-height:0;grid-template-columns:1fr}.leftcol,.rightcol,.centercol{max-height:none;border:0;border-bottom:1px solid #dce2de}.preview{min-height:400px}.action-dock{overflow:auto;white-space:nowrap}.leftcol .grid{grid-template-columns:1fr 1fr}}
+@media(max-width:540px){.toolbar{height:auto;flex-wrap:wrap}.toolbar #exampleFlag{width:100%;margin-left:0}.brand{flex-wrap:wrap}.layout{grid-template-columns:1fr}.leftcol .grid{grid-template-columns:1fr 1fr}.preview{padding:16px}}
+@media print{.workflow,.rightcol,.action-dock{display:none!important}.layout{display:block;height:auto;background:white}.centercol{padding:0;overflow:visible}.docbar,.center-title{display:none}.preview{max-width:none;min-height:0;padding:0;border:0;box-shadow:none}.notice{display:block}}
+</style>
+</head>
+<body>
+<header class="top"><div class="brand"><h1>Board Meeting Workbench</h1><p>Company Secretary review · Offline</p></div><div class="badge">WORKING DRAFT · NO APPROVAL INFERRED</div></header>
+<main class="wrap">
+<div class="notice"><b>Working draft — CS review required.</b> Not evidence that a meeting occurred, attendance was actual, or a transaction was approved. Verify source records, SS-1 and Articles.</div>
+<div class="toolbar">
+<label class="btn primary filelabel">Load registers<input id="registerFiles" class="hidden" type="file" multiple accept=".xlsx"></label>
+<button class="btn" id="saveBtn">Save working file</button><label class="btn filelabel">Open working file<input id="openWork" class="hidden" type="file" accept=".json,application/json"></label>
+<button class="btn" id="demoBtn">Reset demo</button><button class="btn danger" id="clearBtn">Clear all data</button><span id="exampleFlag" class="small"></span>
+</div>
+<nav class="workflow"><b>1 Load registers</b><span>/</span><b>2 Compose the meeting</b><span>/</span><b>3 Review checks and papers</b><span>/</span><b>4 Download drafts</b></nav>
+<div class="layout">
+<div class="stack leftcol">
+<section class="card"><h2>Compose the meeting</h2><div class="grid">
+<div class="field"><label for="serial">Serial</label><input id="serial" placeholder="e.g. 1st"></div>
+<div class="field"><label for="fy">Financial year</label><input id="fy" placeholder="YYYY-YY"></div>
+<div class="field full"><label for="meetDate">Date of meeting</label><input id="meetDate" type="date"></div>
+<div class="field"><label for="startTime">From</label><input id="startTime" type="time"></div>
+<div class="field"><label for="endTime">To</label><input id="endTime" type="time"></div>
+<div class="field full"><label for="noticeDate">Notice dispatch date</label><input id="noticeDate" type="date"></div>
+<div class="field full"><label for="delivery">Notice delivery</label><select id="delivery"><option value="">Email or hand delivery</option><option>Email</option><option>Hand delivery</option><option>Speed post</option><option>Registered post</option><option>Other</option></select></div>
+<div class="field full"><label for="mode">Meeting mode</label><select id="mode"><option value="">Select mode</option><option>Physical</option><option>VC</option><option>Hybrid</option></select></div>
+<div class="field full"><label for="venue">Venue</label><textarea id="venue" placeholder="Meeting venue"></textarea></div>
+<div class="field full"><label for="articlesDays">Articles notice period (days; check Articles)</label><input id="articlesDays" type="number" min="0" placeholder="Confirm separately"></div>
+<div class="field full inline"><label class="inline"><input id="urgency" type="checkbox"> Shorter notice for urgency</label></div>
+</div>
+<h3>Planned attendance</h3><div class="small">Not actual attendance. Director quorum excludes KMP.</div><div id="attendance" class="rows"></div><div id="modeChanges" class="small"></div>
+</section>
+<section class="card"><h2>Agenda builder</h2><div class="field"><label for="addAgendaSelect">Add a common agenda item</label><div class="inline"><select id="addAgendaSelect" style="flex:1;min-width:200px"></select><button id="addAgenda" class="btn">Add item</button></div></div>
+<div id="agendaItems" class="rows" style="margin-top:12px"></div>
+</section>
+<details class="card"><summary class="small"><b>Register load results</b></summary><div class="small">Expected sheet names and headers; Notes.txt and other files are skipped.</div><div id="intake" class="feedback"><div class="msg">No registers loaded yet.</div></div><h3>Company facts</h3><div id="companyFacts" class="small"></div><h3>Directors and KMP register</h3><div id="people" class="rows"></div></details>
+</div>
+<div class="stack centercol"><section class="card"><h2 class="center-heading">Draft papers</h2><div class="docbar" id="docTabs"></div><select id="docSelect" class="hidden" aria-label="Choose document"></select><div class="center-title"><span id="docSummary">Draft preview · CS review required</span><span>WORKING DRAFT</span></div><div id="preview" class="preview"></div><div class="foot">Every output is subject to Company Secretary review; no actual attendance, approval or decision is inferred.</div></section></div>
+<div class="stack rightcol"><section class="card"><h2>Meeting checks</h2><div class="small" style="margin-bottom:8px">Scope: unlisted public company; ordinary Board meeting rules. Confirm Articles, exemptions and transaction approvals separately.</div><div id="checks" class="checks"></div></section></div>
+</div>
+</main><div id="flash" class="flash hidden"></div>
+<div class="action-dock"><button class="btn primary" id="printBtn">Print / save as PDF</button><button class="btn" id="wordBtn">Download for Word</button><button class="btn" id="emailBtn">Prepare email draft</button><button class="btn" id="mailoutlookBtn">Download Outlook draft</button><button class="btn" id="copyEmailsBtn">Copy directors' emails</button><span class="spacer"></span><span class="small">Draft papers only · review before dispatch</span></div>
+<script>
+"use strict";
+const REQUIRED={
+ Company:["Field","Value"],
+ Director:["Record Type","DIN or Membership No","Name","Designation","Category","Date of Appointment","Term Ends On","Email","Independent","Chairperson"],
+ Meetings:["Meeting Type","Serial","Financial Year","Date Held"],
+ RelatedParties:["Name of Related Party","CIN or LLPIN","Nature of Relationship","Interested DINs","Nature of Transaction","Approved Limit (Rs)"]
+};
+const FIELDS=["Name of the Company","Corporate Identity Number","Permanent Account Number","Class of Company","Date of Incorporation","Registrar of Companies","Registered Office","Email","Telephone","Current Financial Year"];
+const DEMO={
+ company:{"Name of the Company":"Meridian Precision Components Limited","Corporate Identity Number":"U29253PN2011PLC141876","Permanent Account Number":"AAJCM4721K","Class of Company":"Public Company - Unlisted","Date of Incorporation":"2011-07-01","Registrar of Companies":"RoC - Pune","Registered Office":"Plot D-14/2, MIDC Chakan Industrial Area, Phase II, Khed, Pune 410501, Maharashtra","Email":"cs@meridianprecision.example","Telephone":"+91 20 0000 0000","Current Financial Year":"2026-27"},
+ directors:[
+ {type:"Director",id:"00512847",name:"Rajeev Anand Deshmukh",designation:"Chairman and Managing Director",category:"Executive - Promoter",appointment:"2011-07-01",term:"",email:"rajeev.deshmukh@meridianprecision.example",independent:false,chairperson:true},
+ {type:"Director",id:"00734182",name:"Sunanda Rajeev Deshmukh",designation:"Whole-time Director",category:"Executive - Promoter",appointment:"2011-07-01",term:"",email:"sunanda.deshmukh@meridianprecision.example",independent:false,chairperson:false},
+ {type:"Director",id:"05283917",name:"Harpreet Kaur Bhatia",designation:"Independent Director",category:"Non-Executive - Independent",appointment:"2018-10-01",term:"2028-09-30",email:"hk.bhatia.id@example.org",independent:true,chairperson:false},
+ {type:"Director",id:"07128463",name:"Asha Nair",designation:"Non-Executive Director",category:"Non-Executive",appointment:"2022-04-01",term:"2027-03-31",email:"asha.nair@example.org",independent:false,chairperson:false},
+ {type:"KMP",id:"Membership 14",name:"Anita D. Shah",designation:"Company Secretary",category:"KMP",appointment:"2019-01-01",term:"",email:"anita.shah@example.org",independent:false,chairperson:false}
+ ],
+ meetings:[
+ {type:"Board",serial:"1st",fy:"2025-26",date:"2025-05-15"},
+ {type:"Board",serial:"2nd",fy:"2025-26",date:"2025-08-20"},
+ {type:"Board",serial:"3rd",fy:"2025-26",date:"2025-11-12"},
+ {type:"Board",serial:"4th",fy:"2025-26",date:"2026-02-20"},
+ {type:"Board",serial:"1st",fy:"2026-27",date:"2026-03-20"},
+ {type:"Board",serial:"2nd",fy:"2026-27",date:"2026-06-20"},
+ {type:"Board",serial:"3rd",fy:"2026-27",date:"2026-09-20"}
+ ],
+ parties:[
+ {name:"Meridian Tooling Systems Private Limited",cin:"U29253PN2013PTC148921",relationship:"Private company in which Directors are members and directors",interested:["00512847","07128463"],transaction:"Purchase of tooling, jigs and fixtures",limit:"90000000"},
+ {name:"Precision Logistics and Warehousing Private Limited",cin:"U63030PN2016PTC167342",relationship:"Private company in which a Director is a director",interested:["07128463"],transaction:"Inbound and outbound freight services",limit:"42000000"}
+ ]
+};
+const commonAgenda=["Confirmation of quorum","To take note of disclosures of interest","Appointment of Chairperson","Any other matter with the permission of the Chair"];
+const state={company:{},directors:[],meetings:[],parties:[],example:true,agenda:[],attendance:{},meeting:{serial:"5th",fy:"2026-27",date:"2026-10-30",start:"11:00",end:"13:00",venue:"Registered Office: Plot D-14/2, MIDC Chakan Industrial Area, Pune",mode:"Hybrid",noticeDate:"2026-10-20",delivery:"Email",articlesDays:"",urgency:false},intake:[],modeChanges:[],doc:"notice"};
+const $=id=>document.getElementById(id);
+const esc=s=>String(s??"").replace(/[&<>"']/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]));
+const norm=s=>String(s??"").normalize("NFKD").toLowerCase().replace(/[^a-z0-9]/g,"");
+const dateFmt=s=>{if(!s)return "Not entered";let d=new Date(s+"T00:00:00");return isNaN(+d)?s:d.toLocaleDateString("en-IN",{day:"2-digit",month:"long",year:"numeric"})};
+const dateDiff=(a,b)=>Math.round((new Date(b+"T00:00:00")-new Date(a+"T00:00:00"))/86400000);
+const escapeHTML=esc;
+function loadDemo(){state.company={...DEMO.company};state.directors=structuredClone(DEMO.directors);state.meetings=structuredClone(DEMO.meetings);state.parties=structuredClone(DEMO.parties);state.example=true;state.agenda=[
+ newItem("Leave of absence requests","Leave requests received for consideration; record the Board's decision after the meeting."),
+ newItem("Previous Board Minutes","To note the minutes of the previous Board meeting. Confirm date/reference before issue."),
+ newItem("Related-party transaction","Consider the proposed transaction with a related party; terms and approval route to be confirmed.",[0]),
+ newItem("Borrowing","Consider the proposed borrowing; amount, lender, terms and authority remain to be confirmed."),
+ newItem("Compliance report","Review the compliance report for the period; period and exceptions to be confirmed.")
+];state.attendance={};}
+function newItem(title,notes="",partyIndexes=[]){return{id:crypto.randomUUID(),title,notes,resolution:"",parties:partyIndexes};}
+function emptyMeeting(){return{serial:"",fy:"",date:"",start:"",end:"",venue:"",mode:"",noticeDate:"",delivery:"",articlesDays:"",urgency:false};}
+loadDemo();
+function formatCheck(status,title,calc,provision){return `<div class="check"><div class="checkhead"><span>${esc(title)}</span><span class="status ${status}">${status==="met"?"Check met":status==="review"?"Review required":"Issue found"}</span></div><p><b>Calculation / result:</b> ${esc(calc)}</p><p><b>Provision / basis:</b> ${esc(provision)}</p></div>`}
+function titleCase(s){return String(s||"").trim()}
+function activeDirectors(){return state.directors.filter(d=>d.type==="Director"&&!(d.cessation&&state.meeting.date&&d.cessation<=state.meeting.date)&&!(d.term&&state.meeting.date&&d.term<state.meeting.date))}
+function attendanceChoice(d){return state.attendance[d.id]||"Not recorded"}
+function companyIdentity(c){return String(c["Corporate Identity Number"]||"").trim().toUpperCase()||String(c["Name of the Company"]||"").trim().toLowerCase()}
+function render(){
+ $("exampleFlag").textContent=state.example?"FICTIONAL EXAMPLE · Replace or clear before real work":"Registers loaded · data remains on this device";
+ $("companyFacts").innerHTML=FIELDS.map(k=>`<div><b>${esc(k)}:</b> ${esc(state.company[k]||"—")}</div>`).join("");
+ $("people").innerHTML=state.directors.length?state.directors.map(d=>`<div class="person"><div><div class="pname">${esc(d.name)}</div><div class="pdetail">${esc(d.type)} · ${esc(d.designation)} · ${d.type==="Director"?"DIN":"No."} ${esc(d.id)}${d.independent?" · Independent":""}</div></div><span class="pdetail">${d.email?esc(d.email):"Email not recorded"}</span><span class="status ${d.type==="Director"?"met":"review"}">${d.type}</span></div>`).join(""):`<div class="empty">Upload the Company and Director registers to begin.</div>`;
+ renderMeeting();renderAttendance();renderAgenda();renderChecks();renderPreview();renderIntake();
+}
+function renderMeeting(){
+ const m=state.meeting;for(const [id,key] of [["serial","serial"],["fy","fy"],["meetDate","date"],["startTime","start"],["endTime","end"],["venue","venue"],["mode","mode"],["noticeDate","noticeDate"],["delivery","delivery"],["articlesDays","articlesDays"],["urgency","urgency"]]){
+ const el=$(id);if(el.type==="checkbox")el.checked=!!m[key];else el.value=m[key]??"";
+ }
+}
+function renderAttendance(){
+ let dirs=activeDirectors(), kmps=state.directors.filter(d=>d.type!=="Director");
+ const options=d=>{let allowed=["In person","VC","Absent (leave requested)"];if(state.meeting.mode==="Physical")allowed=allowed.filter(x=>x!=="VC");if(state.meeting.mode==="VC")allowed=allowed.filter(x=>x!=="In person");return ["Not recorded",...allowed].map(x=>`<option ${attendanceChoice(d)===x?"selected":""}>${esc(x)}</option>`).join("")};
+ $("attendance").innerHTML=dirs.length?dirs.map(d=>`<div class="person"><div><div class="pname">${esc(d.name)}</div><div class="pdetail">DIN ${esc(d.id)}${d.independent?" · Independent":""}</div></div><div class="field"><select data-attendance="${esc(d.id)}" aria-label="Planned attendance for ${esc(d.name)}">${options(d)}</select></div><span class="pdetail">${esc(d.designation)}</span></div>`).join(""):`<div class="empty">No directors loaded.</div>`;
+ $("attendance").insertAdjacentHTML("beforeend",kmps.map(d=>`<div class="person"><div><div class="pname">${esc(d.name)}</div><div class="pdetail">KMP · ${esc(d.designation)} · not counted for quorum</div></div><div class="field"><select data-attendance="${esc(d.id)}" aria-label="Planned attendance for ${esc(d.name)}">${options(d)}</select></div><span class="pdetail">${esc(d.id)}</span></div>`).join(""));
+ $("modeChanges").textContent=state.modeChanges.length?state.modeChanges.join(" "):"";
+}
+function renderAgenda(){
+ const sel=$("addAgendaSelect");if(!sel.options.length)sel.innerHTML=commonAgenda.map(x=>`<option>${esc(x)}</option>`).join("");
+ $("agendaItems").innerHTML=state.agenda.map((item,i)=>`<div class="agenda-item"><div class="agenda-top"><b>${i+1}.</b><div><input class="inline-edit" data-agenda-title="${item.id}" value="${esc(item.title)}" aria-label="Agenda item title">${item.title.toLowerCase().includes("related-party")?`<div class="field"><label>Select related parties (interested Directors are combined)</label><div class="party-options">${state.parties.map((p,j)=>`<label class="party-check"><input type="checkbox" data-party="${item.id}" value="${j}" ${item.parties.includes(j)?"checked":""}> ${esc(p.name)}</label>`).join("")||"<span class='muted'>No related-party register records loaded.</span>"}</div><div class="small"><b>Combined interested Directors:</b> ${esc(interestedNames(item).join("; ")||"None selected or recorded")}</div></div>`:""}</div><div class="agenda-controls"><button class="btn" data-move="${item.id}" data-dir="-1" title="Move up">↑</button><button class="btn" data-move="${item.id}" data-dir="1" title="Move down">↓</button><button class="btn danger" data-remove="${item.id}" title="Remove item">Remove</button></div></div><div class="field"><label>Notes / paper reference (incomplete wording is flagged)</label><textarea data-notes="${item.id}" placeholder="Record the purpose, background, paper reference and any missing particulars">${esc(item.notes)}</textarea></div><div class="field"><label>Proposed resolution (draft only; no decision is inferred)</label><textarea data-resolution="${item.id}" placeholder="Draft wording for CS review">${esc(item.resolution)}</textarea></div></div>`).join("")||`<div class="empty">No agenda items. Choose an item above to add one.</div>`;
+}
+function renderIntake(){
+ $("intake").innerHTML=state.intake.length?state.intake.map(m=>`<div class="msg ${m.level}">${esc(m.text)}</div>`).join(""):`<div class="msg">Fictional example data is shown. Load registers to validate and update.</div>`;
+}
+function renderChecks(){
+ let checks=[];
+ const m=state.meeting, dt=m.date, nd=m.noticeDate, dvalid=!!dt&&!isNaN(Date.parse(dt)), nvalid=!!nd&&!isNaN(Date.parse(nd));
+ let noticeStatus="review",noticeCalc="Enter meeting date, dispatch date and delivery method.";
+ if(dvalid&&nvalid&&m.delivery){const days=dateDiff(nd,dt),min=(m.delivery==="Speed post"||m.delivery==="Registered post")?2:0;let issue=days<0;noticeStatus=issue?"issue":days>=7&&days>=min?"met":"review";noticeCalc=`${days} calendar day(s) from dispatch to meeting; meeting date excluded. General threshold: 7 days. ${min?`${m.delivery} minimum used: 2 days.`:"Dispatch method recorded: "+m.delivery+"."}${days<7?` Shorter notice: ${m.urgency?"urgency marked; verify applicable Independent Director attendance or ratification.":"record urgency and verify applicable Independent Director attendance or ratification."}`:""}`;}
+ checks.push(formatCheck(noticeStatus,"Notice period and dispatch",noticeCalc,"Companies Act, 2013, section 173(3), and SS-1 notice requirements; at least seven days, excluding the meeting date. For shorter notice, urgency and the applicable Independent Director attendance/ratification process require specific review. This tool does not determine eligibility."));
+ let artStatus="review",artCalc="Enter valid dates and the notice period verified from the current Articles.";if(dvalid&&nvalid&&m.articlesDays!==""&&Number.isFinite(+m.articlesDays)){let days=dateDiff(nd,dt);artStatus=days<0?"issue":days>=Math.max(0,+m.articlesDays)?"met":"review";artCalc=`${days} day(s) available against the Articles input of ${+m.articlesDays} day(s). Check for any additional Articles requirements.`}
+ checks.push(formatCheck(artStatus,"Articles notice requirement (separate)",artCalc,"The company's Articles may prescribe longer or additional notice requirements; confirm against the current Articles."));
+ const dirs=activeDirectors(),strength=dirs.length,required=Math.max(2,Math.ceil(strength/3)),present=dirs.filter(d=>["In person","VC"].includes(attendanceChoice(d))).length;
+ checks.push(formatCheck(!strength?"issue":present>=required?"met":present===0?"review":"issue","General quorum",`Board strength in loaded active Director register: ${strength}; quorum = higher of 2 or ceil(${strength}/3) = ${required}. Planned present Directors (in person + VC): ${present}. KMP excluded.`,`Companies Act, 2013, section 174(1), and SS-1. Confirm Board strength and actual attendance on the day; planned attendance is not actual attendance.`));
+ let selected=state.agenda.filter(a=>a.title.toLowerCase().includes("related-party"));
+ if(!selected.length)checks.push(formatCheck("met","Interested-Director quorum","No related-party agenda item is currently included.","Companies Act, 2013, section 174(3), where applicable; confirm interests for every agenda item."));
+ selected.forEach((item,i)=>{const interested=[...new Set(item.parties.flatMap(j=>state.parties[j]?.interested||[]))];const missingInterestData=!item.parties.length||!interested.length;const threshold=interested.length*3>=strength*2;const nonIntPresent=dirs.filter(d=>!interested.includes(d.id)&&["In person","VC"].includes(attendanceChoice(d))).length;const min=threshold?2:required;let ok=threshold?nonIntPresent>=2:nonIntPresent>=required;let calc=`Item ${i+1}: ${item.title}. ${item.parties.length} related party record(s) selected. Interested DINs: ${interested.length?interested.join(", "):"none selected/recorded"} (${interested.length} × 3 ${threshold?"≥":"<"} ${strength} × 2; ${threshold?"two-thirds threshold reached":"two-thirds threshold not reached"}). Planned non-interested Directors present: ${nonIntPresent}; required: ${min}.${missingInterestData?" Party selection or interested-DIN information is incomplete; quorum cannot be confirmed.":""}`;checks.push(formatCheck(missingInterestData?"review":ok?"met":nonIntPresent?"issue":"review",`Interested-Director quorum · ${item.title}`,calc,"Companies Act, 2013, section 174(3); interested Directors are not counted for that item. When interested Directors are at least two-thirds of Board strength, at least two non-interested Directors must be present. Check item-specific interests and actual participation."));});
+ const history=state.meetings.filter(x=>x.type.toLowerCase()==="board"&&x.date&&(!dt||x.date<dt)).sort((a,b)=>b.date.localeCompare(a.date));
+ if(!history.length)checks.push(formatCheck("review","Interval from previous Board meeting","No earlier Board meeting date is available in the loaded history; interval cannot be calculated.","Companies Act, 2013, section 173(1): maximum 120 days between consecutive Board meetings."));
+ else{const last=history[0],gap=dateDiff(last.date,dt);checks.push(formatCheck(!dvalid?"review":gap<=120?"met":"issue", "Interval from latest earlier Board meeting",`Latest earlier recorded Board meeting: ${dateFmt(last.date)} (${last.serial||"serial not recorded"}); proposed: ${dvalid?dateFmt(dt):"date missing"}. Interval: ${dvalid?gap:"—"} day(s); limit 120 days.`, "Companies Act, 2013, section 173(1), read with applicable rules; verify completeness of meeting history."));}
+ let year=dvalid?dt.slice(0,4):"";
+ const cy=state.meetings.filter(x=>x.type.toLowerCase()==="board"&&x.date&&x.date.slice(0,4)===year&&x.date<dt);
+ let yearStatus=!dvalid?"review":cy.length+1>=4?"met":"review";
+ checks.push(formatCheck(yearStatus,"Board meetings in calendar year",`${year||"Year not entered"}: ${cy.length} recorded earlier Board meeting(s) in January–December; proposed meeting shown separately as 1. Total including proposal: ${cy.length+1} of 4 required. Financial-year totals are not used.`,`Companies Act, 2013, section 173(1): at least four Board meetings in each calendar year, subject to statutory exemptions. Future meetings may be needed; this is not an annual compliance certificate.`));
+ let agendaIncomplete=state.agenda.filter(a=>!a.title.trim()||!a.notes.trim()||/\b(to be confirmed|remain to be confirmed|confirm .* before|not recorded)\b/i.test(a.notes)||a.title.toLowerCase().includes("related-party")&&a.parties.length===0).map(a=>a.title||"(untitled)");
+ const termNear=state.directors.filter(d=>d.type==="Director"&&d.term&&dvalid&&(!d.cessation||d.cessation>dt)&&dateDiff(dt,d.term)<=30).map(d=>`${d.name} (${dateFmt(d.term)})`);
+ const missingDates=!dvalid||!m.noticeDate||!m.start||!m.end||!m.venue||!m.mode||!m.delivery||!m.serial||!m.fy;
+ let readyStatus=(missingDates||!history.length||agendaIncomplete.length||termNear.length)?"review":"met";
+ const readiness=[missingDates?"Meeting or dispatch particulars are missing.":"Meeting particulars entered.",!history.length?"No earlier Board meeting history available.":"Earlier Board meeting history is available.",agendaIncomplete.length?`Incomplete agenda wording/details: ${agendaIncomplete.join("; ")}.`:"Agenda wording and details entered.",termNear.length?`Director terms ending before or within 30 days of the meeting: ${termNear.join("; ")}.`:"No loaded Director term ends before or within 30 days."].join(" ");
+ checks.push(formatCheck(readyStatus,"Draft readiness and source completeness",readiness+" Leave requested is recorded for meeting administration only; it does not establish vacation of office for twelve-month absence.", "Companies Act, 2013, section 167(1)(b), and SS-1; check source documents and appointment terms. Register-based checks cannot certify all compliance."));
+ $("checks").innerHTML=checks.join("");
+}
+const docTypes=[["notice","Notice"],["agenda","Agenda and notes"],["attendance","Attendance sheet"],["minutes","Draft minutes"],["actions","Action points"]];
+function renderPreview(){
+ const sel=$("docSelect");if(!sel.options.length)sel.innerHTML=docTypes.map(([v,n])=>`<option value="${v}">${n}</option>`).join("");sel.value=state.doc;
+ $("docTabs").innerHTML=docTypes.map(([v,n])=>`<button class="doc-tab ${state.doc===v?"active":""}" data-doc="${v}">${esc(n)}</button>`).join("");
+ const totals={met:document.querySelectorAll("#checks .status.met").length,review:document.querySelectorAll("#checks .status.review").length,issue:document.querySelectorAll("#checks .status.issue").length},planned=activeDirectors().filter(d=>["In person","VC"].includes(attendanceChoice(d))).length;
+ $("docSummary").textContent=`${state.agenda.length} agenda items · ${planned} / ${activeDirectors().length} planned present · ${totals.issue} issues · ${totals.review} reviews`;
+ $("preview").innerHTML=documentHTML(state.doc);
+}
+function partyInfo(item){return item.parties.map(j=>state.parties[j]).filter(Boolean)}
+function companyName(){return state.company["Name of the Company"]||"[Company name not recorded]"}
+function docHead(doc,title){return `<div class="draftlabel">DRAFT · FOR COMPANY SECRETARY REVIEW</div><h1>${esc(companyName())}</h1><h2>${esc(title)}</h2><p class="muted" style="text-align:center">CIN: ${esc(state.company["Corporate Identity Number"]||"[not recorded]")} · Registered office: ${esc(state.company["Registered Office"]||"[not recorded]")}</p>${state.example?`<p class="muted" style="text-align:center"><b>FICTIONAL EXAMPLE — replace with verified company records</b></p>`:""}`}
+function td(v){return `<td>${esc(v||"—")}</td>`}
+function interestedForItem(item){return [...new Set(partyInfo(item).flatMap(p=>p.interested))]}
+function interestedNames(item){return interestedForItem(item).map(id=>{let d=state.directors.find(x=>x.type==="Director"&&x.id===id);return d?`${d.name} (DIN ${id})`:`DIN ${id} — name not found`})}
+function formatAmount(value){let n=Number(String(value||"").replace(/,/g,""));return Number.isFinite(n)?new Intl.NumberFormat("en-IN",{maximumFractionDigits:2}).format(n):String(value||"not recorded")}
+function documentHTML(type){
+ const m=state.meeting,dt=dateFmt(m.date),dirs=activeDirectors(),mitems=state.agenda;
+ let html=docHead(type,type==="notice"?"NOTICE OF BOARD MEETING":type==="agenda"?"AGENDA AND NOTES":type==="attendance"?"PLANNED ATTENDANCE SHEET":type==="minutes"?"DRAFT MINUTES": "DRAFT ACTION POINTS");
+ if(type==="notice")html+=`<p style="text-align:right"><b>Date:</b> ${esc(dateFmt(m.noticeDate))}</p><p>To,<br>All the Directors<br>${esc(companyName())}</p><h3 style="text-align:center;margin:24px 0">NOTICE OF THE ${esc((m.serial||"[SERIAL]").toUpperCase())} MEETING OF THE BOARD OF DIRECTORS</h3><p>Dear Sir / Madam,</p><p>Notice is hereby given that the ${esc(m.serial||"[serial]")} meeting of the Board of Directors of the Company for the Financial Year ${esc(m.fy||"[financial year]")} is proposed to be held on <b>${esc(dt)}</b> at <b>${esc(m.start||"[start time]")}</b>, to transact the business set out below.</p><p>The meeting is proposed to be held as a <b>${esc(m.mode||"[meeting mode]")}</b> meeting at <b>${esc(m.venue||"[venue]")}</b>${m.end?`, expected to conclude at ${esc(m.end)}`:""}. ${m.mode==="Physical"?"Participation by video conferencing is not proposed; Directors are requested to attend in person.":m.mode==="VC"?"Please use the VC joining details to be circulated separately.":"Participation details for physical and VC attendance will be circulated separately."}</p><h3>Business to be transacted</h3>${mitems.length?`<ol>${mitems.map(a=>`<li>${esc(a.title||"[Agenda title missing]")}</li>`).join("")}</ol>`:`<p><b>[No business has been placed on the agenda. Add agenda items before dispatch.]</b></p>`}<p>The agenda and notes on agenda are to accompany this notice. Directors are requested to make it convenient to attend the meeting.</p><p><b>Dispatch check (CS review):</b> dispatch date ${esc(dateFmt(m.noticeDate))}; method ${esc(m.delivery||"[method not entered]")}. Verify the notice period and evidence of service for every Director under the Act, SS-1 and Articles before dispatch.</p><p style="margin-top:28px">By order of the Board<br><br>________________________<br>Company Secretary / authorised signatory<br>${esc(state.company["Registered Office"]||"[registered office]")}</p>`;
+ if(type==="agenda")html+=`<p><b>Meeting:</b> ${esc(m.serial||"[serial]")} Board Meeting · ${esc(dt)} · ${esc(m.start||"[time]")} · ${esc(m.mode||"[mode]")} · ${esc(m.venue||"[venue]")}</p><ol>${mitems.map(item=>{let ps=partyInfo(item);return `<li><b>${esc(item.title||"[Agenda title missing]")}</b><p><b>Notes:</b> ${esc(item.notes||"[Notes / paper reference required]")}</p>${ps.map(p=>`<p><b>Related party:</b> ${esc(p.name)} · ${esc(p.relationship)} · Transaction: ${esc(p.transaction)} · Register limit: Rs ${esc(formatAmount(p.limit))}. Interested Directors: ${esc(interestedNames(item).join("; ")||"none recorded")}.</p>`).join("")}${item.title.toLowerCase().includes("related-party")?`<p class="muted">Register limits are not available headroom and do not evidence approval.</p>`:""}<p><b>Proposed resolution (draft):</b> ${esc(item.resolution||"[Draft wording required; no decision is inferred]")}</p></li>`}).join("")}</ol><p><b>Note:</b> Related-party interests and applicable approval requirements must be independently verified before circulation or consideration.</p>`;
+ if(type==="attendance")html+=`<p><b>Meeting:</b> ${esc(m.serial||"[serial]")} Board Meeting · ${esc(dt)} · ${esc(m.start||"[time]")} · ${esc(m.mode||"[mode]")}</p><p><i>Planned arrangements only. Record actual participation and attendance in the meeting record on the day; do not use this plan as evidence of presence.</i></p><h3>Directors</h3><table><tr><th>Name / DIN</th><th>Designation</th><th>Independent</th><th>Planned arrangement</th><th>Actual attendance / signature (complete at meeting)</th></tr>${dirs.map(d=>`<tr>${td(`${d.name} · ${d.id}`)}${td(d.designation)}${td(d.independent?"Yes":"No")}${td(attendanceChoice(d))}<td></td></tr>`).join("")}</table><h3>KMP (not counted for quorum)</h3><table><tr><th>Name</th><th>Designation</th><th>Planned arrangement</th><th>Actual attendance / signature</th></tr>${state.directors.filter(d=>d.type!=="Director").map(d=>`<tr>${td(d.name)}${td(d.designation)}${td(attendanceChoice(d))}<td></td></tr>`).join("")}</table><p>Leave requested (planned): ${dirs.filter(d=>attendanceChoice(d)==="Absent (leave requested)").map(d=>`${d.name} (${d.id})`).join("; ")||"None recorded"}.</p>`;
+ if(type==="minutes")html+=`<p><b>Meeting details:</b> ${esc(m.serial||"[serial]")} Board Meeting · ${esc(dt)} · ${esc(m.start||"[time]")} · ${esc(m.venue||"[venue]")} · ${esc(m.mode||"[mode]")}</p><p><b>Actual commencement / conclusion:</b> [To be recorded] &nbsp; <b>Chairperson:</b> [To be recorded]</p><p><b>Attendance and quorum:</b> [Record actual attendees, mode of participation, leave applications, quorum at commencement and throughout, and any item-specific quorum. Planned attendance is not actual attendance.]</p><ol>${mitems.map(a=>`<li><b>${esc(a.title||"[Agenda item]")}</b><p><b>Notes:</b> ${esc(a.notes||"[To be completed]")}</p><p><b>Discussion / declarations / decision:</b> [To be recorded accurately after the meeting. No decision or approval is pre-populated.]</p><p><b>Proposed resolution for consideration:</b> ${esc(a.resolution||"[Draft resolution, if required; not evidence of adoption]")}</p><p><b>Voting / dissent / abstention:</b> [To be completed]</p></li>`).join("")}</ol><p><b>Meeting closed at:</b> [To be recorded]</p><p><b>Minutes signed by / date / place:</b> [To be completed after review]</p>`;
+ if(type==="actions")html+=`<p><b>Meeting:</b> ${esc(m.serial||"[serial]")} Board Meeting · ${esc(dt)}</p><p><i>Proposed follow-up template. Add only actions actually approved or assigned after the meeting.</i></p><table><tr><th>#</th><th>Agenda / action</th><th>Owner</th><th>Due date</th><th>Status / evidence</th></tr>${mitems.map((a,i)=>`<tr><td>${i+1}</td>${td(a.title)}<td>[To be assigned]</td><td>[To be agreed]</td><td>[Not recorded]</td></tr>`).join("")}</table><p>No action, approval, or decision is assumed by this draft.</p>`;
+ return html;
+}
+function flash(msg){const f=$("flash");f.textContent=msg;f.classList.remove("hidden");setTimeout(()=>f.classList.add("hidden"),2600)}
+function setMeetingFromControls(){
+ const map={serial:"serial",fy:"fy",date:"meetDate",start:"startTime",end:"endTime",venue:"venue",mode:"mode",noticeDate:"noticeDate",delivery:"delivery",articlesDays:"articlesDays",urgency:"urgency"};
+ for(let [k,id] of Object.entries(map)){let e=$(id);state.meeting[k]=e.type==="checkbox"?e.checked:e.value;}
+}
+document.addEventListener("input",e=>{
+ if(e.target.closest(".leftcol")&&e.target.id!=="registerFiles"){setMeetingFromControls();
+ if(e.target.matches("[data-agenda-title]")){let x=state.agenda.find(a=>a.id===e.target.dataset.agendaTitle);if(x)x.title=e.target.value}
+ if(e.target.matches("[data-notes]")){let x=state.agenda.find(a=>a.id===e.target.dataset.notes);if(x)x.notes=e.target.value}
+ if(e.target.matches("[data-resolution]")){let x=state.agenda.find(a=>a.id===e.target.dataset.resolution);if(x)x.resolution=e.target.value}
+ renderChecks();renderPreview();}
+});
+document.addEventListener("change",e=>{
+ if(e.target.matches("#mode")){setMeetingFromControls();const valid=state.meeting.mode==="Physical"?["In person","Absent (leave requested)"]:state.meeting.mode==="VC"?["VC","Absent (leave requested)"]:["In person","VC","Absent (leave requested)"];let changed=[];for(const d of [...activeDirectors(),...state.directors.filter(d=>d.type!=="Director")]){const a=state.attendance[d.id];if(a&&!valid.includes(a)){state.attendance[d.id]="Not recorded";changed.push(d.name)}}state.modeChanges=changed.length?[`Mode changed to ${state.meeting.mode}; incompatible planned arrangements for ${changed.join(", ")} were reset to “Not recorded”. Please choose again.`]:[];renderAttendance();renderChecks();renderPreview();return;}
+ if(e.target.matches("[data-agenda-title]")){renderAgenda();renderChecks();renderPreview();return}
+ if(e.target.matches("[data-attendance]")){state.attendance[e.target.dataset.attendance]=e.target.value;renderChecks();renderPreview();return}
+ if(e.target.matches("[data-party]")){let a=state.agenda.find(x=>x.id===e.target.dataset.party);if(a){const n=+e.target.value;a.parties=e.target.checked?[...new Set([...a.parties,n])]:a.parties.filter(x=>x!==n)}renderAgenda();renderChecks();renderPreview();return}
+ if(e.target.id==="docSelect"){state.doc=e.target.value;renderPreview();return}
+ if(e.target.id==="registerFiles"){handleRegisterFiles(e.target.files);e.target.value="";return}
+ if(e.target.id==="openWork"){handleOpenWork(e.target.files[0]);e.target.value="";return}
+ if(e.target.closest(".leftcol")){setMeetingFromControls();renderChecks();renderPreview();}
+});
+$("addAgenda").addEventListener("click",()=>{state.agenda.push(newItem($("addAgendaSelect").value));renderAgenda();renderChecks();renderPreview()});
+document.addEventListener("click",e=>{
+ const doc=e.target.closest("[data-doc]");if(doc){state.doc=doc.dataset.doc;renderPreview();return}
+ const rm=e.target.closest("[data-remove]");if(rm){state.agenda=state.agenda.filter(x=>x.id!==rm.dataset.remove);renderAgenda();renderChecks();renderPreview()}
+ const mv=e.target.closest("[data-move]");if(mv){let i=state.agenda.findIndex(x=>x.id===mv.dataset.move),j=i+(+mv.dataset.dir);if(j>=0&&j<state.agenda.length){[state.agenda[i],state.agenda[j]]=[state.agenda[j],state.agenda[i]];renderAgenda();renderChecks();renderPreview()}}
+});
+$("printBtn").onclick=()=>window.print();
+$("wordBtn").onclick=()=>{let html=`<!doctype html><html><head><meta charset="utf-8"><style>body{font-family:Arial,sans-serif;color:#192b3b}table{border-collapse:collapse;width:100%}td,th{border:1px solid #888;padding:6px;text-align:left}th{background:#eee}.draftlabel{text-align:center;color:#a63232;font-weight:bold}</style></head><body>${documentHTML(state.doc)}</body></html>`;download(new Blob(["\ufeff",html],{type:"application/msword;charset=utf-8"}),`${state.doc}-draft.doc`);};
+$("emailBtn").onclick=()=>downloadEmailDraft("email-draft.eml");
+$("mailoutlookBtn").onclick=()=>downloadEmailDraft("outlook-draft.eml");
+$("copyEmailsBtn").onclick=async()=>{const emails=state.directors.map(d=>d.email).filter(Boolean);if(!emails.length){flash("No director email addresses are loaded.");return}try{await navigator.clipboard.writeText(emails.join("; "));flash(`${emails.length} director email address(es) copied.`)}catch(e){flash("Clipboard access unavailable in this browser context. Use the loaded Directors register to copy addresses.");}};
+$("demoBtn").onclick=()=>{loadDemo();state.meeting={serial:"5th",fy:"2026-27",date:"2026-10-30",start:"11:00",end:"13:00",venue:"Registered Office: Plot D-14/2, MIDC Chakan Industrial Area, Pune",mode:"Hybrid",noticeDate:"2026-10-20",delivery:"Email",articlesDays:"",urgency:false};state.intake=[];state.modeChanges=[];state.doc="notice";render();flash("Fictional demo data restored.");};
+$("saveBtn").onclick=()=>{setMeetingFromControls();download(new Blob([JSON.stringify({format:"BoardMeetingWorkbench",version:1,state},null,2)],{type:"application/json"}),`${(state.company["Name of the Company"]||"BoardMeeting").replace(/[^a-z0-9]+/gi,"-")}-working-file.json`);};
+$("clearBtn").onclick=()=>{if(!confirm("Clear the current registers, meeting inputs and agenda from this page? This does not delete downloaded files."))return;state.company={};state.directors=[];state.meetings=[];state.parties=[];state.example=false;state.agenda=[];state.attendance={};state.meeting={serial:"",fy:"",date:"",start:"",end:"",venue:"",mode:"",noticeDate:"",delivery:"",articlesDays:"",urgency:false};state.intake=[];state.modeChanges=[];render();flash("Working data cleared from this page.");};
+function download(blob,name){const a=document.createElement("a");a.href=URL.createObjectURL(blob);a.download=name;document.body.append(a);a.click();a.remove();setTimeout(()=>URL.revokeObjectURL(a.href),1500)}
+function downloadEmailDraft(filename){let label=$("docSelect").selectedOptions[0].text,subject=`Draft ${label} — ${state.meeting.serial||"Board"} meeting ${state.meeting.date||""}`.replace(/[\r\n]/g," "),body=`For Company Secretary review only.\r\n\r\nMeeting: ${state.meeting.serial||"[serial]"} · ${dateFmt(state.meeting.date)}\r\nSelected working draft: ${label}.\r\n\r\nPlease review the draft in the workbench and attach the reviewed document manually if appropriate. No approval or actual attendance is implied; nothing has been sent.`;let encoded=`=?UTF-8?B?${btoa(unescape(encodeURIComponent(subject)))}?=`,eml=`To: \r\nSubject: ${encoded}\r\nX-Unsent: 1\r\nMIME-Version: 1.0\r\nContent-Type: text/plain; charset=UTF-8\r\nContent-Transfer-Encoding: 8bit\r\n\r\n${body}\r\n`;download(new Blob([eml],{type:"message/rfc822;charset=utf-8"}),filename);flash("Email draft downloaded for review; it has not been sent.");}
+function handleOpenWork(file){if(!file)return;file.text().then(t=>{const obj=JSON.parse(t);if(obj.format!=="BoardMeetingWorkbench"||!obj.state)throw new Error("This is not a Board Meeting Workbench working file.");const s=obj.state;for(const k of ["company","directors","meetings","parties","agenda","meeting"])if(!(k in s))throw new Error(`Working file is missing ${k}.`);Object.assign(state,s);state.attendance=s.attendance||{};state.intake=s.intake||[];render();flash("Working file reopened.");}).catch(err=>{state.intake.push({level:"error",text:`Could not reopen working file: ${err.message}`});renderIntake();});}
+
+const ZIP_SIG=0x02014b50;
+async function unzipXlsx(file){
+ const buf=await file.arrayBuffer(),v=new DataView(buf);let eocd=-1;
+ for(let i=v.byteLength-22;i>=Math.max(0,v.byteLength-65558);i--)if(v.getUint32(i,true)===0x06054b50){eocd=i;break}
+ if(eocd<0)throw new Error("Not a supported XLSX/ZIP workbook.");
+ let count=v.getUint16(eocd+10,true),p=v.getUint32(eocd+16,true),files={};
+ const td=new TextDecoder();
+ for(let i=0;i<count;i++){if(v.getUint32(p,true)!==ZIP_SIG)throw new Error("Workbook ZIP directory is damaged.");let method=v.getUint16(p+10,true),size=v.getUint32(p+20,true),nl=v.getUint16(p+28,true),el=v.getUint16(p+30,true),cl=v.getUint16(p+32,true),off=v.getUint32(p+42,true),name=td.decode(new Uint8Array(buf,p+46,nl));let lp=off+30+v.getUint16(off+26,true)+v.getUint16(off+28,true),raw=new Uint8Array(buf,lp,size);
+ if(method===0)files[name]=raw;else if(method===8){if(!("DecompressionStream"in window))throw new Error("This browser cannot decompress XLSX files. Use a current Chrome or Edge version.");let ds=new DecompressionStream("deflate-raw"),stream=new Blob([raw]).stream().pipeThrough(ds);files[name]=new Uint8Array(await new Response(stream).arrayBuffer())}else throw new Error(`Unsupported XLSX compression method ${method}.`);
+ p+=46+nl+el+cl;}
+ return files;
+}
+function parseXml(bytes){return new DOMParser().parseFromString(new TextDecoder().decode(bytes),"application/xml")}
+const xns={m:"http://schemas.openxmlformats.org/spreadsheetml/2006/main",r:"http://schemas.openxmlformats.org/officeDocument/2006/relationships"};
+function colIndex(ref){let n=0;for(const c of ref.replace(/[0-9]/g,""))n=n*26+c.toUpperCase().charCodeAt(0)-64;return n-1}
+async function workbookSheets(file){
+ const z=await unzipXlsx(file),wb=parseXml(z["xl/workbook.xml"]),rel=parseXml(z["xl/_rels/workbook.xml.rels"]),rels={};
+ for(const x of rel.getElementsByTagName("Relationship"))rels[x.getAttribute("Id")]=x.getAttribute("Target");
+ const ss=[];if(z["xl/sharedStrings.xml"]){for(const si of parseXml(z["xl/sharedStrings.xml"]).getElementsByTagNameNS(xns.m,"si"))ss.push(Array.from(si.getElementsByTagNameNS(xns.m,"t")).map(t=>t.textContent).join(""))}
+ const sheets=[];
+ for(const sh of wb.getElementsByTagNameNS(xns.m,"sheet")){
+  let target=rels[sh.getAttributeNS(xns.r,"id")];if(!target)continue;let path=target.startsWith("/")?target.slice(1):"xl/"+target.replace(/^\.?\//,"");path=path.replace(/xl\/\.\.\//g,"");
+  if(!z[path])continue;let xml=parseXml(z[path]),rows=[];
+  for(const row of xml.getElementsByTagNameNS(xns.m,"row")){let arr=[];for(const c of row.getElementsByTagNameNS(xns.m,"c")){const idx=colIndex(c.getAttribute("r")),typ=c.getAttribute("t"),v=c.getElementsByTagNameNS(xns.m,"v")[0];let val=v?v.textContent:"";if(typ==="s")val=ss[+val]||"";else if(typ==="inlineStr")val=Array.from(c.getElementsByTagNameNS(xns.m,"t")).map(t=>t.textContent).join("");else if(typ==="b")val=val==="1"?"TRUE":"FALSE";arr[idx]=val;}rows.push(arr)}
+  sheets.push({name:sh.getAttribute("name"),rows});
+ }
+ return sheets;
+}
+function validISODate(value){if(!/^\d{4}-\d{2}-\d{2}$/.test(String(value||"")))return false;let d=new Date(`${value}T00:00:00Z`);return !isNaN(+d)&&d.toISOString().slice(0,10)===value}
+function excelDate(value){if(value===""||value==null)return "";if(/^\d{4}-\d{2}-\d{2}$/.test(String(value)))return String(value);if(/^\d{1,2}[-/]\d{1,2}[-/]\d{4}$/.test(String(value))){let [d,m,y]=String(value).split(/[-/]/);return `${y}-${m.padStart(2,"0")}-${d.padStart(2,"0")}`}if(/^\d+(\.\d+)?$/.test(String(value))){let n=Number(value);if(n>15000&&n<90000){let dt=new Date(Date.UTC(1899,11,30)+n*86400000);return dt.toISOString().slice(0,10)}}return String(value)}
+function rowSkipped(row){let txt=row.join(" ").toLowerCase();return /\bexample\b/.test(txt)||/\bbank\b/.test(txt)}
+function message(level,text){state.intake.push({level,text})}
+function headersFor(rows){let i=rows.findIndex(r=>r&&r.length&&r.some(x=>String(x||"").trim()));return i<0?null:{index:i,headers:rows[i].map(x=>String(x||"").trim())}}
+function findCol(headers,key){const kn=norm(key);let aliases={"dinormembershipno":["dinormembershipno","dinormembershipno."],"email":["email","emailaddress"],"approvedlimitrs":["approvedlimitrs","approvedlimitrs."],"dateheld":["dateheld"]};let candidates=aliases[kn]||[kn];return headers.findIndex(h=>candidates.includes(norm(h)))}
+function headerMatch(sh){
+ const got=headersFor(sh.rows);if(!got)return null;
+ let hh=got.headers, mapping=Object.fromEntries(Object.entries(REQUIRED).map(([kind,req])=>[kind,req.map(x=>findCol(hh,x))]));
+ let kind=Object.keys(mapping).find(k=>mapping[k].every(i=>i>=0));
+ if(!kind){if(sh.name==="Director"||sh.name==="Directors"||sh.name==="Meetings"||sh.name==="RelatedParties")message("warn",`${sh.file} · Sheet “${sh.name}” row ${got.index+1}: headers did not match an expected register structure. Found: ${hh.filter(Boolean).join(", ")}`);return null}
+ const expected={Company:"Company",Director:"Director",Meetings:"Meetings",RelatedParties:"RelatedParties"}[kind];
+ if(sh.name!==expected&&!(kind==="Director"&&sh.name==="Directors")){message("warn",`${sh.file} · Sheet “${sh.name}”: expected sheet “${expected}”; this sheet was skipped.`);return null}
+ if(kind==="Director"&&sh.name==="Directors")message("warn",`${sh.file} · Sheet “Directors”: recognized plural sheet name; expected “Director”.`);
+ return{kind,rowStart:got.index+1,headers:hh,mapping:mapping[kind],data:sh.rows.slice(got.index+1)};
+}
+function rawVal(row,headers,key){let i=findCol(headers,key);return i<0?"":row[i]??""}
+function parseCompany(sheet,src){
+ let c={},duplicate=false;for(const row of sheet.data){if(rowSkipped(row))continue;let f=String(row[sheet.mapping[0]]??"").trim(),v=row[sheet.mapping[1]]??"";if(!f&&!v)continue;if(FIELDS.includes(f)){if(c[f]!==undefined){message("error",`${src} · ${sheet.name} row ${sheet.rowStart+sheet.data.indexOf(row)+1}: duplicate company field “${f}”; company facts not loaded.`);duplicate=true;continue}c[f]=f==="Date of Incorporation"?excelDate(v):String(v).trim()}}
+ if(duplicate)return null;
+ let missing=FIELDS.filter(k=>!String(c[k]||"").trim());if(missing.length){message("error",`${src} · ${sheet.name} rows ${sheet.rowStart+1}-${sheet.rowStart+FIELDS.length}: missing required company detail(s): ${missing.join(", ")}.`);return null}
+ if(!validISODate(c["Date of Incorporation"])){message("error",`${src} · ${sheet.name} row ${sheet.rowStart+1+FIELDS.indexOf("Date of Incorporation")}: invalid Date of Incorporation “${c["Date of Incorporation"]}”; company record not loaded.`);return null}
+ if(c.Email&&!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(c.Email))message("warn",`${src} · ${sheet.name}: doubtful company email format: ${c.Email}.`);
+ return c;
+}
+function parseDirector(sheet,src,existingIds){
+ const out=[],seen=new Set(existingIds),required=["Record Type","DIN or Membership No","Name","Designation","Category","Date of Appointment","Independent","Chairperson"];
+ sheet.data.forEach((r,i)=>{let rn=sheet.rowStart+i+1;if(!r||!r.some(x=>String(x??"").trim())||rowSkipped(r))return;
+ let type=String(rawVal(r,sheet.headers,"Record Type")).trim(),id=String(rawVal(r,sheet.headers,"DIN or Membership No")).trim(),name=String(rawVal(r,sheet.headers,"Name")).trim(),appointment=excelDate(rawVal(r,sheet.headers,"Date of Appointment")),term=excelDate(rawVal(r,sheet.headers,"Term Ends On")),email=String(rawVal(r,sheet.headers,"Email")).trim(),ind=String(rawVal(r,sheet.headers,"Independent")).trim(),chair=String(rawVal(r,sheet.headers,"Chairperson")).trim(),designation=String(rawVal(r,sheet.headers,"Designation")).trim(),category=String(rawVal(r,sheet.headers,"Category")).trim();
+ let missing=[];for(let key of required)if(!String(rawVal(r,sheet.headers,key)).trim())missing.push(key);if(missing.length){message("error",`${src} · ${sheet.name} row ${rn}: missing required ${missing.join(", ")}; record not loaded.`);return}
+ if(!["Director","KMP"].includes(type)){message("error",`${src} · ${sheet.name} row ${rn}: Record Type must be Director or KMP; record not loaded.`);return}
+ if(type==="Director"){id=id.padStart(8,"0");if(!/^\d{8}$/.test(id)){message("error",`${src} · ${sheet.name} row ${rn}: invalid DIN “${id}”; expected eight digits (including leading zeros).`);return}}
+ if(seen.has(id)){message("error",`${src} · ${sheet.name} row ${rn}: duplicate DIN/membership number ${id}; record not loaded.`);return}
+ if(!validISODate(appointment)||term&&!validISODate(term)){message("error",`${src} · ${sheet.name} row ${rn}: invalid appointment/term date; record not loaded.`);return}
+ if(!["Yes","No"].includes(ind)&&type==="Director"||!["Yes","No"].includes(chair)&&type==="Director"){message("error",`${src} · ${sheet.name} row ${rn}: Independent and Chairperson must be Yes or No; record not loaded.`);return}
+ let cessation=excelDate(rawVal(r,sheet.headers,"Date of Cessation")),status=String(rawVal(r,sheet.headers,"DIN Status")).trim();
+ if(cessation&&!validISODate(cessation)){message("error",`${src} · ${sheet.name} row ${rn}: invalid cessation date; record not loaded.`);return}
+ if(email&&!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email))message("warn",`${src} · ${sheet.name} row ${rn}: doubtful email format for ${name}: ${email}.`);
+ if(status.toLowerCase()==="ceased"&&!cessation)message("warn",`${src} · ${sheet.name} row ${rn}: DIN Status is Ceased but no cessation date is supplied; record included pending review.`);
+ seen.add(id);out.push({type,id,name,designation,category,appointment,term,email,ind:ind==="Yes",independent:ind==="Yes",chairperson:chair==="Yes",chair:chair==="Yes",cessation:cessation||""});
+ });return out;
+}
+function parseMeeting(sheet,src,existing=state.meetings){
+ let out=[],seen=new Set(existing.map(x=>`${norm(x.type)}|${norm(x.serial)}|${norm(x.fy)}`));sheet.data.forEach((r,i)=>{let rn=sheet.rowStart+i+1;if(!r||!r.some(x=>String(x??"").trim())||rowSkipped(r))return;
+ let type=String(rawVal(r,sheet.headers,"Meeting Type")).trim(),serial=String(rawVal(r,sheet.headers,"Serial")).trim(),fy=String(rawVal(r,sheet.headers,"Financial Year")).trim(),date=excelDate(rawVal(r,sheet.headers,"Date Held"));
+ if(!type&&!serial&&!fy&&!date)return;
+ if(!type||!serial||!fy||!date){message("error",`${src} · ${sheet.name} row ${rn}: missing meeting type, serial, financial year or date; record not loaded.`);return}
+ if(!validISODate(date)){message("error",`${src} · ${sheet.name} row ${rn}: invalid meeting date “${date}”; record not loaded.`);return}
+ let key=`${norm(type)}|${norm(serial)}|${norm(fy)}`;if(seen.has(key)){message("error",`${src} · ${sheet.name} row ${rn}: duplicate meeting record ${type} ${serial} ${fy}; record not loaded.`);return}seen.add(key);
+ out.push({type,serial,fy,date});
+ });return out;
+}
+function parseParty(sheet,src,directorIds,existing=state.parties){
+ let out=[],seen=new Set(existing.map(p=>[p.name,p.cin,p.relationship,p.interested.join(";"),p.transaction,p.limit].map(norm).join("|")));sheet.data.forEach((r,i)=>{let rn=sheet.rowStart+i+1;if(!r||!r.some(x=>String(x??"").trim())||rowSkipped(r))return;
+ let name=String(rawVal(r,sheet.headers,"Name of Related Party")).trim(),cin=String(rawVal(r,sheet.headers,"CIN or LLPIN")).trim(),relationship=String(rawVal(r,sheet.headers,"Nature of Relationship")).trim(),dinText=String(rawVal(r,sheet.headers,"Interested DINs")).trim(),transaction=String(rawVal(r,sheet.headers,"Nature of Transaction")).trim(),limit=String(rawVal(r,sheet.headers,"Approved Limit (Rs)")).trim();
+ if(![name,cin,relationship,transaction,limit].every(Boolean)){message("error",`${src} · ${sheet.name} row ${rn}: missing required related-party details; record not loaded.`);return}
+ let interested=dinText?dinText.split(";").map(x=>x.trim().padStart(8,"0")):[];
+ let invalid=interested.find(d=>!/^\d{8}$/.test(d));if(invalid){message("error",`${src} · ${sheet.name} row ${rn}: invalid interested DIN “${invalid}”; expected eight digits.`);return}
+ let unknown=interested.filter(d=>!directorIds.has(d));if(unknown.length){message("error",`${src} · ${sheet.name} row ${rn}: unknown interested DIN(s) ${unknown.join(", ")}; record not loaded.`);return}
+ if(!/^\d+(\.\d{1,2})?$/.test(limit.replace(/,/g,""))){message("error",`${src} · ${sheet.name} row ${rn}: invalid approved-limit amount; record not loaded.`);return}
+ let key=[name,cin,relationship,interested.join(";"),transaction,limit.replace(/,/g,"")].map(norm).join("|");if(seen.has(key)){message("error",`${src} · ${sheet.name} row ${rn}: duplicate related-party record for ${name}; record not loaded.`);return}seen.add(key);
+ out.push({name,cin,relationship,interested,transaction,limit:limit.replace(/,/g,"")});seen.add(key);
+ });return out;
+}
+async function handleRegisterFiles(files){
+ if(!files||!files.length)return;files=Array.from(files);state.intake=[];
+ let allSheets=[],workbooks=[];
+ for(const file of files){if(!file.name.toLowerCase().endsWith(".xlsx")){message("warn",`Skipped ${file.name}: not an .xlsx register workbook (unrelated files such as Notes.txt are ignored).`);continue}
+  try{let sheets=await workbookSheets(file);if(!sheets.length){message("error",`${file.name}: no readable sheets found.`);continue}workbooks.push(file.name);sheets.forEach(s=>{s.file=file.name});allSheets.push(...sheets);}
+  catch(e){message("error",`${file.name}: could not read workbook — ${e.message}`)}
+ }
+ let recognized=[];for(const sh of allSheets){let m=headerMatch(sh);if(m)recognized.push({...m,name:sh.name,file:sh.file});}
+ if(!recognized.length)message("error","No sheet matched the required register headers. Check sheet contents and header row.");
+ let importedCompany=null, incomingDirs=[], incomingMeetings=[], incomingParties=[],seenKinds=new Set(),replacingExample=false;
+ const companySheets=recognized.filter(x=>x.kind==="Company"),dirSheets=recognized.filter(x=>x.kind==="Director"),meetingSheets=recognized.filter(x=>x.kind==="Meetings"),partySheets=recognized.filter(x=>x.kind==="RelatedParties");
+ for(const sh of companySheets){if(importedCompany){message("error",`${sh.file} · ${sh.name}: duplicate Company sheet in this upload; only one company register may be loaded.`);continue}importedCompany=parseCompany(sh,sh.file);if(importedCompany)seenKinds.add("Company");message(importedCompany?"ok":"error",`${sh.file} · ${sh.name}: ${importedCompany?"Company facts accepted.":"Company facts not loaded because required values are missing or invalid."}`);}
+ if(state.example&&importedCompany&&companyIdentity(importedCompany)!==companyIdentity(state.company)){message("error","Incoming company differs from the fictional example. Clear data first, then load its Company and Director registers; no records were mixed.");renderIntake();return;}
+ replacingExample=!!(state.example&&importedCompany);
+ const priorDirectors=replacingExample?[]:state.directors,priorMeetings=replacingExample?[]:state.meetings,priorParties=replacingExample?[]:state.parties;
+ for(const sh of dirSheets){incomingDirs.push(...parseDirector(sh,sh.file,new Set([...priorDirectors.map(d=>d.id),...incomingDirs.map(d=>d.id)])));seenKinds.add("Director");message("ok",`Accepted ${sh.file} · ${sh.name} (Director/KMP rows).`);}
+ for(const sh of meetingSheets){incomingMeetings.push(...parseMeeting(sh,sh.file,[...priorMeetings,...incomingMeetings]));seenKinds.add("Meetings");message("ok",`Accepted ${sh.file} · ${sh.name} (meeting history).`);}
+ const allDirIds=new Set([...priorDirectors.filter(d=>d.type==="Director").map(d=>d.id),...incomingDirs.filter(d=>d.type==="Director").map(d=>d.id)]);
+ for(const sh of partySheets){incomingParties.push(...parseParty(sh,sh.file,allDirIds,[...priorParties,...incomingParties]));seenKinds.add("RelatedParties");message("ok",`Accepted ${sh.file} · ${sh.name} (related parties).`);}
+ if(!state.directors.length&&(!importedCompany||!dirSheets.length||!incomingDirs.length)){message("error","First load requires valid Company and Director records in the initial upload; no partial first load was applied.");renderIntake();return;}
+ if(replacingExample&&(!dirSheets.length||!incomingDirs.length)){message("error","Replacing the fictional example requires valid Company and Director records together; no example data was changed.");renderIntake();return;}
+ if(state.example&&!importedCompany&&recognized.length){message("error","The fictional example cannot be updated from an unidentified partial upload. Clear data first or include the Company sheet; no records were mixed.");renderIntake();return;}
+ if(state.company["Corporate Identity Number"]&&importedCompany&&companyIdentity(importedCompany)!==companyIdentity(state.company)){message("error","Incoming company identity differs from the current working company. Clear data before switching companies; no records were mixed.");renderIntake();return;}
+ if(replacingExample){state.company={};state.directors=[];state.meetings=[];state.parties=[];state.attendance={};state.meeting=emptyMeeting();state.agenda=["Leave of absence requests","Previous Board Minutes","Related-party transaction","Borrowing","Compliance report"].map(t=>newItem(t));state.modeChanges=[];state.example=false;}
+ if(importedCompany){state.company={...state.company,...importedCompany};if(replacingExample||!state.meeting.fy)state.meeting.fy=importedCompany["Current Financial Year"];state.example=false}
+ if(incomingDirs.length)state.directors.push(...incomingDirs);
+ if(incomingMeetings.length)state.meetings.push(...incomingMeetings);
+ if(incomingParties.length)state.parties.push(...incomingParties);
+ if(!state.directors.length)message("error","No Director records are currently loaded; provide the Director sheet before first use.");
+ let n=workbooks.length;message("ok",`${n} workbook(s) processed locally. ${[...seenKinds].join(", ")||"No recognized register"}; existing working details were retained for partial updates.`);
+ render();
+}
+function normalizeSavedState(){/* reserved for format migrations */}
+render();
+</script>
+</body>
+</html>
